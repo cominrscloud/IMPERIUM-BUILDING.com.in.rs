@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imperium Building | Izgradnja Stambenih i Poslovnih Objekata</title>
+  <meta name="description" content="Imperium Building – Izgradnja vrhunskih stambenih i poslovnih objekata u Srbiji. Bonitetna ocena A+ za 2026. godinu." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0d1b2a;
+      --blue:    #1a3a5c;
+      --mid:     #2c5282;
+      --accent:  #3a7bd5;
+      --silver:  #b0bec5;
+      --light:   #e8edf2;
+      --white:   #ffffff;
+      --off:     #f5f7fa;
+      --gold:    #c9a84c;
+      --text:    #2d3748;
+      --muted:   #718096;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(13,27,42,0.97);
+      box-shadow: 0 2px 40px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem; text-decoration: none;
+    }
+    .nav-logo svg { width: 38px; height: 38px; flex-shrink: 0; }
+    .nav-logo-text { display: flex; flex-direction: column; line-height: 1; }
+    .nav-logo-text span:first-child {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.15rem; letter-spacing: 0.2em;
+      color: var(--white); text-transform: uppercase;
+    }
+    .nav-logo-text span:last-child {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300; font-size: 0.62rem; letter-spacing: 0.35em;
+      color: var(--silver); text-transform: uppercase;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: rgba(255,255,255,0.75);
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 500; transition: color 0.25s;
+      position: relative; padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
+      background: var(--gold); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: transparent; border: 1px solid rgba(201,168,76,0.6);
+      color: var(--gold) !important;
+      padding: 0.5rem 1.4rem; border-radius: 0;
+      transition: background 0.3s, color 0.3s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+    .nav-cta::after { display: none !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; height: 100vh; min-height: 680px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(165deg, rgba(13,27,42,0.92) 0%, rgba(26,58,92,0.85) 60%, rgba(10,20,35,0.95) 100%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* animated grid lines */
+    .hero-lines {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    }
+    .hero-lines::before, .hero-lines::after {
+      content: '';
+      position: absolute;
+      background: linear-gradient(to bottom, transparent, rgba(58,123,213,0.15), transparent);
+      width: 1px;
+      top: -100%; height: 300%;
+      animation: lineDrop 8s linear infinite;
+    }
+    .hero-lines::before { left: 25%; animation-delay: 0s; }
+    .hero-lines::after  { left: 75%; animation-delay: 4s; }
+    @keyframes lineDrop { from { transform: translateY(0); } to { transform: translateY(33.33%); } }
+
+    .hero-content {
+      position: relative; z-index: 2; text-align: center;
+      max-width: 900px; padding: 0 2rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold); font-weight: 400; margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-weight: 300; line-height: 1.05; color: var(--white);
+      letter-spacing: -0.01em; margin-bottom: 1.8rem;
+      opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.65);
+      font-weight: 300; max-width: 620px; margin: 0 auto 2.8rem;
+      opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
+    }
+
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .btn-primary {
+      background: var(--accent); color: var(--white);
+      padding: 0.85rem 2.2rem; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer; transition: background 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--mid); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent; color: var(--white);
+      padding: 0.85rem 2.2rem; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.35); cursor: pointer;
+      transition: border-color 0.3s, color 0.3s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.4); font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase; z-index: 2;
+      animation: fadeIn 1s 1.5s both;
+    }
+    .hero-scroll span { animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--navy);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(58,123,213,0.3);
+    }
+    .stat-item {
+      padding: 2rem 1.5rem; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 600; color: var(--white); line-height: 1;
+    }
+    .stat-num .gold { color: var(--gold); }
+    .stat-label {
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--silver); margin-top: 0.4rem; font-weight: 400;
+    }
+
+    /* ─── SECTIONS COMMON ─── */
+    section { padding: 6rem 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300;
+      color: var(--navy); line-height: 1.15;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-title.light { color: var(--white); }
+    .section-title.light em { color: var(--gold); }
+    .divider {
+      width: 60px; height: 2px; background: var(--gold);
+      margin: 1.5rem 0 2rem;
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--off); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-text p {
+      font-size: 0.97rem; line-height: 1.9; color: var(--muted);
+      margin-bottom: 1.2rem; font-weight: 300;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+
+    .about-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--navy); color: var(--gold);
+      padding: 0.5rem 1rem; font-size: 0.72rem;
+      letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
+      margin-top: 1.5rem;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-card {
+      background: var(--white);
+      border: 1px solid var(--light);
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.07);
+    }
+    .about-card-header {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+      padding-bottom: 1.5rem; border-bottom: 1px solid var(--light);
+    }
+    .about-card-icon {
+      width: 48px; height: 48px; background: var(--navy);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .about-card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 1rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--navy);
+    }
+    .about-card-subtitle { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+
+    .info-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.75rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-key { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .info-val { font-size: 0.9rem; font-weight: 500; color: var(--navy); }
+    .badge-aplus {
+      background: var(--gold); color: var(--navy);
+      padding: 0.15rem 0.6rem; font-size: 0.75rem; font-weight: 700;
+    }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--white); }
+    .services-intro {
+      max-width: 640px; margin-bottom: 4rem;
+    }
+    .services-intro p { font-size: 0.97rem; line-height: 1.8; color: var(--muted); font-weight: 300; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .service-card {
+      padding: 2.8rem 2.5rem;
+      border: 1px solid var(--light);
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover .service-num { color: var(--accent); }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300; color: rgba(13,27,42,0.08);
+      line-height: 1; margin-bottom: 1.2rem; transition: color 0.3s;
+    }
+    .service-icon { margin-bottom: 1.2rem; }
+    .service-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--navy); margin-bottom: 0.8rem;
+    }
+    .service-desc { font-size: 0.88rem; line-height: 1.75; color: var(--muted); font-weight: 300; }
+
+    /* ─── WHY ─── */
+    #why { background: var(--navy); position: relative; overflow: hidden; }
+    #why::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(58,123,213,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+    .why-left { padding-top: 0.5rem; }
+    .why-left p { font-size: 0.97rem; line-height: 1.9; color: rgba(255,255,255,0.55); font-weight: 300; margin-top: 1.5rem; }
+
+    .why-pillars { display: flex; flex-direction: column; gap: 0; }
+    .pillar {
+      display: flex; gap: 1.5rem; padding: 1.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      align-items: flex-start;
+      opacity: 0; transform: translateX(20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .pillar.visible { opacity: 1; transform: translateX(0); }
+    .pillar:first-child { padding-top: 0; }
+
+    .pillar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 600; color: var(--gold);
+      line-height: 1; flex-shrink: 0; width: 2.5rem;
+    }
+    .pillar-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--white); margin-bottom: 0.4rem;
+    }
+    .pillar-text { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.5); font-weight: 300; }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--off); }
+    .projects-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .project-card {
+      background: var(--white); border: 1px solid var(--light);
+      overflow: hidden; position: relative;
+      transition: box-shadow 0.3s;
+    }
+    .project-card:hover { box-shadow: 0 15px 45px rgba(0,0,0,0.1); }
+    .project-card.featured { grid-row: span 2; }
+
+    .project-visual {
+      height: 200px; position: relative; overflow: hidden;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .project-card.featured .project-visual { height: 320px; }
+    .project-visual svg { opacity: 0.25; }
+    .project-visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(26,58,92,0.6), rgba(13,27,42,0.3));
+    }
+
+    .project-body { padding: 1.8rem; }
+    .project-tag {
+      font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 0.5rem;
+    }
+    .project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400; color: var(--navy); margin-bottom: 0.6rem;
+    }
+    .project-card.featured .project-name { font-size: 1.7rem; }
+    .project-desc { font-size: 0.83rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+    /* ─── CERTIFICATIONS ─── */
+    #cert { background: var(--white); }
+    .cert-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem;
+    }
+    .cert-card {
+      border: 1px solid var(--light); padding: 2rem 1.5rem; text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .cert-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .cert-card svg { margin: 0 auto 1rem; display: block; }
+    .cert-card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--navy); margin-bottom: 0.4rem;
+    }
+    .cert-card-text { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--navy); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start;
+    }
+    .contact-info { padding-top: 0.5rem; }
+    .contact-info p { font-size: 0.95rem; line-height: 1.85; color: rgba(255,255,255,0.55); font-weight: 300; margin-top: 1.5rem; margin-bottom: 2.5rem; }
+
+    .contact-detail {
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .contact-detail-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: rgba(58,123,213,0.15); border: 1px solid rgba(58,123,213,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-detail-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); margin-bottom: 0.15rem; }
+    .contact-detail-val { font-size: 0.9rem; color: var(--white); font-weight: 400; }
+
+    .contact-form-box {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      padding: 2.5rem;
+    }
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 300; color: var(--white); margin-bottom: 1.8rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .form-group label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--silver); }
+    .form-group input, .form-group textarea, .form-group select {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white); padding: 0.75rem 1rem; font-family: 'Barlow', sans-serif;
+      font-size: 0.88rem; outline: none; transition: border-color 0.25s;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select option { background: var(--navy); }
+
+    .btn-submit {
+      width: 100%; background: var(--accent); border: none;
+      color: var(--white); padding: 0.9rem; font-family: 'Barlow', sans-serif;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; cursor: pointer; transition: background 0.3s;
+    }
+    .btn-submit:hover { background: var(--mid); }
+
+    /* success message */
+    .form-success {
+      display: none; text-align: center; padding: 2rem;
+      color: var(--white); font-size: 0.95rem; line-height: 1.7;
+    }
+    .form-success svg { margin: 0 auto 1rem; display: block; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #070f18; color: rgba(255,255,255,0.35);
+      padding: 2rem 4rem; display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.75rem; letter-spacing: 0.08em;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .footer-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.9rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+    }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--silver); }
+
+    /* ─── BURGER MOBILE ─── */
+    .burger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    .burger span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: all 0.3s; }
+
+    /* ─── REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      nav { padding: 1.2rem 2rem; }
+      .container { padding: 0 2rem; }
+      .about-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .project-card.featured { grid-row: auto; }
+      .cert-grid { grid-template-columns: 1fr 1fr; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; gap: 0;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--navy); align-items: center; justify-content: center;
+        z-index: 99;
+      }
+      .nav-links.open a { font-size: 1.1rem; padding: 1rem 0; }
+      .burger { display: flex; z-index: 101; }
+      .services-grid, .projects-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="38" height="38" fill="none"/>
+      <!-- Building icon: two towers -->
+      <rect x="4" y="10" width="12" height="24" fill="#3a7bd5"/>
+      <rect x="18" y="4" width="16" height="30" fill="#c9a84c"/>
+      <!-- windows left tower -->
+      <rect x="7" y="13" width="3" height="3" fill="#0d1b2a" opacity=".5"/>
+      <rect x="11" y="13" width="3" height="3" fill="#0d1b2a" opacity=".5"/>
+      <rect x="7" y="19" width="3" height="3" fill="#0d1b2a" opacity=".5"/>
+      <rect x="11" y="19" width="3" height="3" fill="#0d1b2a" opacity=".5"/>
+      <!-- windows right tower -->
+      <rect x="21" y="8" width="3" height="3" fill="#0d1b2a" opacity=".4"/>
+      <rect x="26" y="8" width="3" height="3" fill="#0d1b2a" opacity=".4"/>
+      <rect x="21" y="14" width="3" height="3" fill="#0d1b2a" opacity=".4"/>
+      <rect x="26" y="14" width="3" height="3" fill="#0d1b2a" opacity=".4"/>
+      <rect x="21" y="20" width="3" height="3" fill="#0d1b2a" opacity=".4"/>
+      <rect x="26" y="20" width="3" height="3" fill="#0d1b2a" opacity=".4"/>
+      <!-- ground line -->
+      <rect x="2" y="33" width="34" height="2" fill="#3a7bd5" opacity=".6"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span>Imperium Building</span>
+      <span>Real Estate Development</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">O nama</a></li>
+    <li><a href="#services">Usluge</a></li>
+    <li><a href="#projects">Projekti</a></li>
+    <li><a href="#why">Vrednosti</a></li>
+    <li><a href="#contact" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Niš, Srbija &nbsp;·&nbsp; Osnovan 2025 &nbsp;·&nbsp; Bonitetna ocena A+</p>
+    <h1 class="hero-title">
+      Gradimo <em>budućnost</em><br>od temelja do horizonta
+    </h1>
+    <p class="hero-sub">
+      Imperium Building je kompanija posvećena izgradnji vrhunskih stambenih i poslovnih objekata. 
+      Spajamo arhitektonsku viziju, inženjersku preciznost i dugogodišnje iskustvo da bismo kreirali 
+      prostore koji traju generacijama.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">Naši Projekti</a>
+      <a href="#contact" class="btn-outline">Kontaktirajte Nas</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>↓</span>
+    Scroll
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num"><span class="gold">A+</span></div>
+    <div class="stat-label">Bonitetna ocena 2026</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4120</div>
+    <div class="stat-label">Šifra delatnosti</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100<span style="font-size:1.6rem">%</span></div>
+    <div class="stat-label">Posvećenost kvalitetu</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="gold">NIŠ</span></div>
+    <div class="stat-label">Baza – ekspanzija regionalno</div>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p class="section-label">Ko smo mi</p>
+        <h2 class="section-title">Pouzdanost i vizija<br><em>u svakom projektu</em></h2>
+        <div class="divider"></div>
+        <p>
+          <strong>Imperium Building d.o.o.</strong> je kompanija registrovana u Nišu, posvećena 
+          izgradnji stambenih i poslovnih objekata najvišeg kvaliteta. Naš tim čine iskusni 
+          inženjeri, arhitekti i investicioni stručnjaci koji svaki projekat tretiraju kao 
+          dugoročno nasleđe.
+        </p>
+        <p>
+          Bavimo se celokupnim razvojnim ciklusom — od akvizicije i planiranja zemljišta, 
+          kroz projektovanje i dobijanje dozvola, do izgradnje i predaje ključeva. 
+          Ovaj integrisani pristup nam omogućava kontrolu svake faze i pruža investitorima 
+          potpunu transparentnost.
+        </p>
+        <p>
+          Već u prvoj godini poslovanja stekli smo <strong>bonitetnu ocenu A+</strong>, 
+          što nas svrstava u finansijski najpouzdanije kompanije u sektoru. 
+          Naša misija je jasna: graditi objekte koji podižu standard življenja i 
+          poslovanja u Srbiji.
+        </p>
+        <div class="about-badge">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.8 5.5L14 6L10 9.5L11.2 13.5L7 11L2.8 13.5L4 9.5L0 6L5.2 5.5L7 1Z" fill="#c9a84c"/></svg>
+          Bonitetna ocena A+ za 2026. godinu
+        </div>
+      </div>
+      <div class="about-visual reveal" style="transition-delay:0.2s">
+        <div class="about-card">
+          <div class="about-card-header">
+            <div class="about-card-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <rect x="2" y="6" width="8" height="14" fill="#3a7bd5" opacity=".8"/>
+                <rect x="12" y="2" width="8" height="18" fill="#c9a84c" opacity=".9"/>
+                <rect x="0" y="19" width="22" height="2" fill="#3a7bd5" opacity=".5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="about-card-title">Imperium Building d.o.o.</div>
+              <div class="about-card-subtitle">Registrovani podaci</div>
+            </div>
+          </div>
+          <div class="info-row"><span class="info-key">PIB</span><span class="info-val">115404728</span></div>
+          <div class="info-row"><span class="info-key">Matični broj</span><span class="info-val">22153129</span></div>
+          <div class="info-row"><span class="info-key">Datum osnivanja</span><span class="info-val">27.11.2025.</span></div>
+          <div class="info-row"><span class="info-key">Delatnost</span><span class="info-val">4120 – Izgradnja zgrada</span></div>
+          <div class="info-row"><span class="info-key">Sedište</span><span class="info-val">Jeronimova 11, Niš</span></div>
+          <div class="info-row"><span class="info-key">Status</span><span class="info-val" style="color:#27ae60;font-weight:600">● Aktivan</span></div>
+          <div class="info-row"><span class="info-key">Bonitet 2026</span><span class="info-val"><span class="badge-aplus">A+</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services">
+  <div class="container">
+    <div class="services-intro reveal">
+      <p class="section-label">Šta radimo</p>
+      <h2 class="section-title">Kompletna usluga<br><em>razvoja nekretnina</em></h2>
+      <div class="divider"></div>
+      <p>
+        Od idejnog projekta do tehničkog prijema objekta — pratimo Vas kroz svaki korak 
+        investicionog procesa. Naš vertikalno integrisani model garantuje efikasnost, 
+        transparentnost i neprekidnu kontrolu kvaliteta.
+      </p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="8" width="14" height="20" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+            <rect x="16" y="2" width="14" height="26" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+            <line x1="0" y1="28" x2="32" y2="28" stroke="#3a7bd5" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="service-title">Stambena izgradnja</div>
+        <div class="service-desc">Projektujemo i gradimo stambene komplekse, višeporodične objekte i luksuzne rezidencijalne objekte koji ispunjavaju najviše energetske i arhitektonske standarde.</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.1s">
+        <div class="service-num">02</div>
+        <div class="service-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="4" width="28" height="24" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+            <line x1="2" y1="12" x2="30" y2="12" stroke="#c9a84c" stroke-width="1"/>
+            <rect x="6" y="16" width="6" height="8" fill="none" stroke="#3a7bd5" stroke-width="1"/>
+            <rect x="16" y="16" width="6" height="8" fill="none" stroke="#3a7bd5" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="service-title">Poslovni objekti</div>
+        <div class="service-desc">Razvijamo poslovne zgrade, kancelarijske komplekse i komercijalne prostore prilagođene savremenim zahtevima tržišta i potrebama korporativnih klijenata.</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.2s">
+        <div class="service-num">03</div>
+        <div class="service-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="14" r="8" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+            <path d="M16 6V4M16 22v2M24 14h2M6 14H4" stroke="#c9a84c" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="16" cy="14" r="3" fill="#3a7bd5" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="service-title">Investiciono planiranje</div>
+        <div class="service-desc">Pružamo kompletnu investicionu podršku — od analize lokacije i procene prinosa, kroz strukturiranje finansiranja, do upravljanja rizicima projekta.</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.3s">
+        <div class="service-num">04</div>
+        <div class="service-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M4 28L4 10L16 4L28 10L28 28" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+            <rect x="12" y="18" width="8" height="10" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
+            <path d="M10 10h4M18 10h4" stroke="#3a7bd5" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="service-title">Mešoviti razvoj</div>
+        <div class="service-desc">Razvijamo projekte koji kombinuju stambeni, poslovni i maloprodajni sadržaj u okviru jednog urbanog kompleksa, kreirajući samoodržive životne zajednice.</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.4s">
+        <div class="service-num">05</div>
+        <div class="service-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="2" width="28" height="28" rx="1" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+            <line x1="2" y1="10" x2="30" y2="10" stroke="#c9a84c" stroke-width="1"/>
+            <line x1="10" y1="2" x2="10" y2="30" stroke="#c9a84c" stroke-width="1"/>
+            <rect x="14" y="14" width="10" height="10" fill="#3a7bd5" opacity=".2" stroke="#3a7bd5" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="service-title">Urbanistički razvoj</div>
+        <div class="service-desc">Aktivno učestvujemo u procesu pribavljanja urbanističkih dozvola, izradi planova i usklađivanju projekata s lokalnim i nacionalnim propisima o izgradnji.</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.5s">
+        <div class="service-num">06</div>
+        <div class="service-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 2L30 28H2L16 2Z" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+            <line x1="16" y1="10" x2="16" y2="20" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="24" r="1.5" fill="#c9a84c"/>
+          </svg>
+        </div>
+        <div class="service-title">Upravljanje projektima</div>
+        <div class="service-desc">Preuzimamo punu odgovornost za koordinaciju svih učesnika u gradnji — od projektantske firme i izvođača, do nadzornih organa i investitora.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY ─── -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left reveal">
+        <p class="section-label" style="color:var(--gold)">Naše vrednosti</p>
+        <h2 class="section-title light">Zašto odabrati<br><em>Imperium Building</em></h2>
+        <div class="divider"></div>
+        <p>
+          U svetu gde su rokovi i budžeti pod stalnim pritiskom, mi smo kompanija 
+          koja se drži date reči. Naša bonitetna ocena A+ nije samo broj — 
+          ona odražava kulturu odgovornosti i dugoročnog razmišljanja koja 
+          prožima svaki aspekt našeg poslovanja.
+        </p>
+        <p>
+          Verujemo da pravi razvoj nekretnina mora biti finansijski pouzdan, 
+          arhitektonski vredan i socijalno odgovoran. Svaki objekat koji podignemo 
+          postaje deo gradskog tkiva na decenije unapred.
+        </p>
+      </div>
+      <div class="why-pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div>
+            <div class="pillar-title">Finansijska pouzdanost</div>
+            <div class="pillar-text">Bonitetna ocena A+ garantuje investitorima sigurnost i transparentnost u svim finansijskim aspektima projekta. Naša kapitalna struktura omogućava realizaciju ambicioznih projekata bez kompromisa.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div>
+            <div class="pillar-title">Inženjerska preciznost</div>
+            <div class="pillar-text">Svaki detalj — od temelja do fasade — prolazi kroz rigorozne standarde kvaliteta. Koristimo materijale i tehnologije koji prekoračuju minimalne zakonske zahteve.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div>
+            <div class="pillar-title">Rokovi i transparentnost</div>
+            <div class="pillar-text">Investitori dobijaju redovne izveštaje o napretku, troškovima i promenama. Kašnjenja u gradnji su za nas neprihvatljiva — gradimo sisteme koji ih sprečavaju.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <div>
+            <div class="pillar-title">Regionalni rast</div>
+            <div class="pillar-text">Niš je naša baza, ali naša ambicija je regionalna ekspanzija. Pratimo tržišne trendove i pozicioniramo se tamo gde je potražnja za kvalitetnim prostorom najveća.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">Projekti koji<br><em>definišu prostor</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card featured reveal">
+        <div class="project-visual" style="background: linear-gradient(135deg, #0d1b2a, #1a3a5c);">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+            <rect x="10" y="30" width="40" height="80" fill="#3a7bd5"/>
+            <rect x="55" y="10" width="55" height="100" fill="#c9a84c"/>
+            <rect x="0" y="108" width="120" height="4" fill="#3a7bd5" opacity=".6"/>
+            <rect x="15" y="40" width="8" height="8" fill="#0d1b2a" opacity=".6"/>
+            <rect x="28" y="40" width="8" height="8" fill="#0d1b2a" opacity=".6"/>
+            <rect x="15" y="55" width="8" height="8" fill="#0d1b2a" opacity=".6"/>
+            <rect x="28" y="55" width="8" height="8" fill="#0d1b2a" opacity=".6"/>
+            <rect x="62" y="20" width="10" height="10" fill="#0d1b2a" opacity=".5"/>
+            <rect x="78" y="20" width="10" height="10" fill="#0d1b2a" opacity=".5"/>
+            <rect x="94" y="20" width="10" height="10" fill="#0d1b2a" opacity=".5"/>
+            <rect x="62" y="38" width="10" height="10" fill="#0d1b2a" opacity=".5"/>
+            <rect x="78" y="38" width="10" height="10" fill="#0d1b2a" opacity=".5"/>
+            <rect x="94" y="38" width="10" height="10" fill="#0d1b2a" opacity=".5"/>
+          </svg>
+          <div class="project-visual-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Flagship · Stambeno-Poslovni Kompleks</div>
+          <div class="project-name">Imperium Centar — Niš</div>
+          <div class="project-desc">Ambiciozni mešoviti razvoj u srcu Niša koji objedinjuje luksuzne stanove, moderne kancelarijske prostore i premium maloprodajne sadržaje u jednom arhitektonski upečatljivom kompleksu. Projekat koji redefiniše urbanistički profil Medijane.</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.15s">
+        <div class="project-visual" style="background: linear-gradient(135deg, #1a3a5c, #2c5282);">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <rect x="5" y="20" width="30" height="55" fill="#3a7bd5" opacity=".8"/>
+            <rect x="40" y="5" width="35" height="70" fill="#c9a84c" opacity=".7"/>
+            <rect x="0" y="73" width="80" height="3" fill="#fff" opacity=".2"/>
+          </svg>
+          <div class="project-visual-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Stambeni · Premium</div>
+          <div class="project-name">Residences Jeronimova</div>
+          <div class="project-desc">Ekskluzivni stambeni objekat sa 24 luksuzna stana, podzemnom garažom i roof-terrace prostorima. Energetska klasa A, pametni sistemi upravljanja.</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.3s">
+        <div class="project-visual" style="background: linear-gradient(135deg, #0d1b2a, #3a7bd5);">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <rect x="5" y="10" width="70" height="65" fill="none" stroke="#c9a84c" stroke-width="2"/>
+            <line x1="5" y1="28" x2="75" y2="28" stroke="#3a7bd5" stroke-width="1.5"/>
+            <rect x="15" y="35" width="15" height="15" fill="#3a7bd5" opacity=".4"/>
+            <rect x="35" y="35" width="15" height="15" fill="#3a7bd5" opacity=".4"/>
+            <rect x="55" y="35" width="15" height="15" fill="#3a7bd5" opacity=".4"/>
+          </svg>
+          <div class="project-visual-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Poslovni · Klasa A</div>
+          <div class="project-name">Business Park Medijana</div>
+          <div class="project-desc">Moderni poslovni park sa open-space i zatvorenim kancelarijama, konferencijskim centrom i svom pratećom infrastrukturom za korporativne zakupce.</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.45s">
+        <div class="project-visual" style="background: linear-gradient(135deg, #1a3a5c, #070f18);">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <path d="M40 5L75 75H5L40 5Z" fill="none" stroke="#c9a84c" stroke-width="2"/>
+            <path d="M40 20L62 65H18L40 20Z" fill="#3a7bd5" opacity=".3"/>
+          </svg>
+          <div class="project-visual-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Razvoj · Perspektiva</div>
+          <div class="project-name">Imperium South Gate</div>
+          <div class="project-desc">Strateška lokacija na jugu Niša. Planirani razvoj stambeno-poslovnog kompleksa sa naglaskom na zelenu arhitekturu i integrisanu komunalnu infrastrukturu.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CERTIFICATIONS ─── -->
+<section id="cert">
+  <div class="container">
+    <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto 3rem;">
+      <p class="section-label">Standardi & akreditacije</p>
+      <h2 class="section-title">Poslujemo po<br><em>najvišim standardima</em></h2>
+      <div class="divider" style="margin: 1.5rem auto 0;"></div>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card reveal">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="16" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+          <path d="M20 10L22.5 16.5L30 17.5L24.5 22.5L26 30L20 26.5L14 30L15.5 22.5L10 17.5L17.5 16.5L20 10Z" fill="#c9a84c" opacity=".8"/>
+        </svg>
+        <div class="cert-card-title">Bonitet A+</div>
+        <div class="cert-card-text">Najviša ocena kreditne sposobnosti za 2026. godinu. Potvrda finansijske stabilnosti i pouzdanosti.</div>
+      </div>
+      <div class="cert-card reveal" style="transition-delay:.1s">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+          <path d="M13 20l5 5 9-9" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="cert-card-title">APR registracija</div>
+        <div class="cert-card-text">Kompanija je u potpunosti registrovana u Agenciji za privredne registre Srbije sa svim neophodnim dozvolama.</div>
+      </div>
+      <div class="cert-card reveal" style="transition-delay:.2s">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M20 4L34 10V22C34 29 27 34 20 36C13 34 6 29 6 22V10L20 4Z" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+          <path d="M14 20l4 4 8-8" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="cert-card-title">Pravilnik o gradnji</div>
+        <div class="cert-card-text">Svi projekti su u skladu sa Zakonom o planiranju i izgradnji i tehničkim propisima o gradnji Srbije.</div>
+      </div>
+      <div class="cert-card reveal" style="transition-delay:.3s">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect x="8" y="4" width="24" height="32" rx="1" fill="none" stroke="#3a7bd5" stroke-width="1.5"/>
+          <line x1="13" y1="12" x2="27" y2="12" stroke="#c9a84c" stroke-width="1.2"/>
+          <line x1="13" y1="18" x2="27" y2="18" stroke="#c9a84c" stroke-width="1.2"/>
+          <line x1="13" y1="24" x2="21" y2="24" stroke="#c9a84c" stroke-width="1.2"/>
+        </svg>
+        <div class="cert-card-title">Transparentno izveštavanje</div>
+        <div class="cert-card-text">Godišnje finansijsko izveštavanje u skladu s računovodstvenim standardima. Potpuna vidljivost za sve investitore.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p class="section-label" style="color:var(--gold)">Kontaktirajte nas</p>
+        <h2 class="section-title light">Razgovarajmo o<br><em>Vašem projektu</em></h2>
+        <div class="divider"></div>
+        <p>
+          Bilo da ste investitor koji traži partnera, kupac stana koji želi da razgovara 
+          sa developerom, ili kompanija koja traži poslovni prostor — naš tim Vam je 
+          na raspolaganju.
+        </p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5A1.5 1.5 0 1 1 8 4a1.5 1.5 0 0 1 0 3z" fill="#3a7bd5"/></svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Adresa</div>
+            <div class="contact-detail-val">Jeronimova 11, 18000 Niš (Medijana), Srbija</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2h12v12H2z" fill="none"/><path d="M2 3l6 5 6-5M2 3h12v10H2V3z" stroke="#3a7bd5" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">E-mail</div>
+            <div class="contact-detail-val">imperiumofficial25@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="1" fill="none" stroke="#3a7bd5" stroke-width="1.2"/><line x1="1" y1="5" x2="15" y2="5" stroke="#3a7bd5" stroke-width="1"/><line x1="5" y1="1" x2="5" y2="15" stroke="#3a7bd5" stroke-width="1"/></svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Radno vreme</div>
+            <div class="contact-detail-val">Pon–Pet: 08:00–17:00h</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-box reveal" style="transition-delay:.2s">
+        <div class="form-title">Pošaljite nam poruku</div>
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ime i prezime</label>
+              <input type="text" placeholder="Vaše ime" required />
+            </div>
+            <div class="form-group">
+              <label>E-mail adresa</label>
+              <input type="email" placeholder="email@domen.rs" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Kompanija (opciono)</label>
+            <input type="text" placeholder="Naziv firme ili organizacije" />
+          </div>
+          <div class="form-group">
+            <label>Vrsta upita</label>
+            <select>
+              <option value="">Izaberite kategoriju</option>
+              <option>Investicioni projekat</option>
+              <option>Kupovina stana</option>
+              <option>Poslovni prostor</option>
+              <option>Partnerstvo / B2B</option>
+              <option>Opšti upit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Poruka</label>
+            <textarea placeholder="Opišite Vaš projekat ili upit..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Pošaljite poruku →</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+            <path d="M14 24l7 7 13-13" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold);margin-bottom:.5rem">Hvala na poruci</div>
+          <div style="color:rgba(255,255,255,0.5);font-size:.88rem">Kontaktiraćemo Vas u najkraćem mogućem roku.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">
+    <svg width="24" height="24" viewBox="0 0 38 38" fill="none">
+      <rect x="4" y="10" width="12" height="24" fill="#3a7bd5" opacity=".6"/>
+      <rect x="18" y="4" width="16" height="30" fill="#c9a84c" opacity=".6"/>
+      <rect x="2" y="33" width="34" height="2" fill="#3a7bd5" opacity=".4"/>
+    </svg>
+    <span class="footer-logo-text">Imperium Building</span>
+  </div>
+  <span>© 2025 Imperium Building d.o.o. · PIB 115404728 · Sva prava zadržana</span>
+  <div class="footer-links">
+    <a href="#about">O nama</a>
+    <a href="#services">Usluge</a>
+    <a href="#projects">Projekti</a>
+    <a href="#contact">Kontakt</a>
+    <a href="mailto:imperiumofficial25@gmail.com">imperiumofficial25@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+  // ─── NAVBAR SCROLL
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ─── BURGER
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    const spans = burger.querySelectorAll('span');
+    if (navLinks.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    });
+  });
+
+  // ─── INTERSECTION OBSERVER (reveal + pillar)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .pillar').forEach(el => io.observe(el));
+
+  // ─── PILLAR STAGGER
+  document.querySelectorAll('.pillar').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.12) + 's';
+  });
+
+  // ─── STATS COUNTER
+  function animateCount(el, end, suffix = '') {
+    let start = 0; const dur = 1500;
+    const step = timestamp => {
+      if (!start) start = timestamp;
+      const p = Math.min((timestamp - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * end) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = end + suffix;
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statsObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCount(document.querySelector('.stat-item:nth-child(2) .stat-num'), 4120);
+        animateCount(document.querySelector('.stat-item:nth-child(3) .stat-num'), 100, '%');
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsObserver.observe(statsBar);
+
+  // ─── CONTACT FORM
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  // ─── SMOOTH SCROLL OFFSET
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = target.getBoundingClientRect().top + window.scrollY - 72;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
